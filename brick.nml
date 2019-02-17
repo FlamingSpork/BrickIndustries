@@ -737,3 +737,44 @@ item(FEAT_INDUSTRYTILES, industry_univ_tile_141, 141) {
 		accepted_cargos:			[[BRCK, 8], [VALU, 8], [PASS, 8]];
 	}
 }
+
+spriteset (spriteset_tiger) {
+	[0,0,64,31,0,0, "gfx/tiger_p.png"]
+}
+
+//south east
+spritelayout spritelayout_tiger {
+    ground {
+        sprite: GROUNDSPRITE_NORMAL;
+    }
+    building {
+        sprite: spriteset_tiger(0);
+        xextent: 4;
+        yextent: 4;
+        zextent: 24;
+        xoffset: 6; //from NE edge
+        yoffset: 12; //from NW edge
+        zoffset: 0;
+    }
+}
+
+item (FEAT_OBJECTS, item_tiger) {
+    property {
+        class:                  "TIGR";
+        classname:              string(STR_TIGR);
+        name:                   string(STR_TIGER);
+        climates_available:     bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC);
+        size:                   [1,1];
+        build_cost_multiplier:  2;
+        remove_cost_multiplier: 8;
+        introduction_date:      date(1961,1,1);
+        end_of_life_date:       0xFFFFFFFF;
+        object_flags:           bitmask(OBJ_FLAG_REMOVE_IS_INCOME, OBJ_FLAG_NO_FOUNDATIONS, OBJ_FLAG_ALLOW_BRIDGE, OBJ_FLAG_IRREMOVABLE);
+        height:                 2;
+        num_views:              1;
+    }
+    graphics {
+        additional_text:    string(STR_TIGER_PURCHASE);
+		default: spritelayout_tiger;
+    }
+}
