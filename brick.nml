@@ -81,24 +81,51 @@ spritegroup spritegroup_flatbed_truck_1_goods {
 	loading: [SPRITESET_FLATBED_TRK_EMPTY, SPRITESET_FLATBED_TRK_FULL];
 }
 
+spriteset(SPRITESET_BULK_UNLOADED, "gfx/vehiclesroad01.png") {
+    [370, 264,  8, 18,  -3, -10]
+    [386, 264, 20, 16, -14,  -7]
+    [418, 264, 28, 12, -14,  -6]
+    [466, 264, 20, 16,  -6,  -7]
+    [498, 264,  8, 18,  -3, -10]
+    [514, 264, 20, 16, -14,  -7]
+    [546, 264, 28, 12, -14,  -6]
+    [594, 264, 20, 16,  -6,  -7]
+}
 
-/*spriteset(spritegroup_clay) {
+spriteset(SPRITESET_BULK_LOADED, "gfx/vehiclesroad01.png") {
+    [ 82, 392,  8, 18,  -3, -10]
+    [ 98, 392, 20, 16, -14,  -7]
+    [130, 392, 28, 12, -14,  -6]
+    [178, 392, 20, 16,  -6,  -7]
+    [210, 392,  8, 18,  -3, -10]
+    [226, 392, 20, 16, -14,  -7]
+    [258, 392, 28, 12, -14,  -6]
+    [306, 392, 20, 16,  -6,  -7]
+}
+
+spritegroup spritegroup_bulk_truck {
+	loaded: [SPRITESET_BULK_LOADED, SPRITESET_BULK_UNLOADED];
+	loading: [SPRITESET_BULK_LOADED, SPRITESET_BULK_UNLOADED];
+}
+
+
+spriteset(spritegroup_clay) {
 	//[10 + 20 * 9, 10 + 20 * 1, 10, 10, 0, 0,  "src/graphics/other/cargoicons.png"]
-	[0, 11, 10, 10, 0, 0, "gfx/items_dos2.png"]
-}*/
+	[0, 11, 10, 10, 0, 0, "gfx/items_dos.png"]
+}
 
 
-/*spriteset(spritegroup_brick) {
+spriteset(spritegroup_brick) {
 	//left_x, upper_y, width, height, offset_x, offset_y
 	[0, 0, 10, 10, 0, 0, "gfx/items_dos2.png"]
-}*/
+}
 /*
 spriteset(spriteset_claymine) {
 	[0, 0, 192, 79, 0, 0, "gfx/claymine.png"]
 }
 */
-/*
-item(FEAT_CARGOS, cargo_clay, 31) {
+
+item(FEAT_CARGOS, cargo_clay, 27) {
 	property {
 		number: 31;
 		type_name: string(STR_CARGO_PLURAL_CLAY);
@@ -118,15 +145,15 @@ item(FEAT_CARGOS, cargo_clay, 31) {
 		cargo_label: "CLAY";
 		town_growth_effect: TOWNGROWTH_NONE;
 		town_growth_multiplier: 0;
-		capacity_multiplier: 1;
+		capacity_multiplier: 27;
 	}
 	
 	graphics {
 		spritegroup_clay;
 	}
-}
+} 
 
-item(FEAT_CARGOS, cargo_brick, 32) {
+item(FEAT_CARGOS, cargo_brick, 26) {
     property {
         type_name: string(STR_CARGO_PLURAL_BRICK);
         unit_name: string(STR_CARGO_SINGULAR_BRICK);
@@ -146,13 +173,13 @@ item(FEAT_CARGOS, cargo_brick, 32) {
         price_factor: 102;
         capacity_multiplier: 1;
         cargo_label: "BRCK";
-        number: 32;
+        number: 26;
     }
     graphics {
-        spritegroup_clay;
+        default: spritegroup_brick;
     }
 }
-*/
+
 
 //Brick truck
 item(FEAT_ROADVEHS, item_flatbed_truck_1) {
@@ -164,8 +191,11 @@ item(FEAT_ROADVEHS, item_flatbed_truck_1) {
 		model_life: 65;
 		vehicle_life: 15;
 		reliability_decay: 20;
-		refittable_cargo_classes: bitmask(CC_PIECE_GOODS, CC_EXPRESS);
-		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_REFRIGERATED);
+		refittable_cargo_classes: bitmask(CC_PIECE_GOODS);
+		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_LIQUID, CC_REFRIGERATED, CC_EXPRESS, CC_COVERED);
+		cargo_allow_refit: [BRCK];
+		cargo_disallow_refit: [LVST, STEL, WOOD];//livestock, steel, wood
+		default_cargo_type: BRCK;
 		loading_speed: 5;
 		cost_factor: 108;
 		running_cost_factor: 90;
@@ -183,6 +213,40 @@ item(FEAT_ROADVEHS, item_flatbed_truck_1) {
 	
 	graphics {
 		default: spritegroup_flatbed_truck_1_goods;
+	}
+}
+
+item(FEAT_ROADVEHS, item_flatbed_truck_2) {
+	property {
+		//Generic vehicle stuff
+		name: string(STR_NAME_CLAY_TRUCK);
+		climates_available: bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC); //change because of RIT's weather
+		introduction_date: date(1946,01,01);
+		model_life: 65;
+		vehicle_life: 15;
+		reliability_decay: 20;
+		refittable_cargo_classes: bitmask(CC_BULK);
+		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_LIQUID, CC_REFRIGERATED, CC_EXPRESS, CC_COVERED);
+		cargo_allow_refit: [CLAY];
+		cargo_disallow_refit: [COAL, GRAI, IORE];//livestock, steel, wood
+		default_cargo_type: CLAY;
+		loading_speed: 5;
+		cost_factor: 108;
+		running_cost_factor: 90;
+		//Road vehicle stuff
+		sprite_id: SPRITE_ID_NEW_ROADVEH;
+		speed: 48 km/h;
+		misc_flags: bitmask(ROADVEH_FLAG_2CC);
+		refit_cost: 0;
+		running_cost_base: RUNNING_COST_ROADVEH;
+		power: 120 hp;
+		weight: 9.5 ton;
+		cargo_capacity: 20;
+		sound_effect: SOUND_BUS_START_PULL_AWAY;
+	}
+	
+	graphics {
+		default: spritegroup_bulk_truck;
 	}
 }
 /*

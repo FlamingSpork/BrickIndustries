@@ -1,17 +1,19 @@
 ##grflangid 0x00
 
 STR_GRF_NAME			:Brick Industries
-STR_GRF_DESCRIPTION		:Adds some high-quality brick memes.
+STR_GRF_DESCRIPTION		:Adds some high-quality brick memes. {}Brought to you by FlamingSpork and Drift_Oscillation
 
+#Vehicles
 STR_NAME_BRICK_TRUCK	:Brick Truck
+STR_NAME_CLAY_TRUCK		:Clay Truck
 
 #Cargo types
-STR_CARGO_PLURAL_CLAY	:clay
+STR_CARGO_PLURAL_CLAY	:Clay
 STR_CARGO_SINGULAR_CLAY	:clay
 STR_QUANTITY_CLAY		:{WEIGHT} of clay
 STR_ABBREV_CLAY			:{TINYFONT}CL
 
-STR_CARGO_PLURAL_BRICK	:bricks
+STR_CARGO_PLURAL_BRICK	:Bricks
 STR_CARGO_SINGULAR_BRICK	:brick
 STR_QUANTITY_BRICK		:{COMMA} bricks
 STR_ABBREV_BRICK		:{TINYFONT}BR
