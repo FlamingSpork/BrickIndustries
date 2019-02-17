@@ -300,3 +300,138 @@ item(FEAT_INDUSTRIES, industry_claymine, 0x34) {
         }
 	}
 	*/
+	
+railtypetable {
+    RAIL
+}
+
+template tmpl_train_4view_88length_high_width_height_offset
+	(x2, x3, x4, ew2, ew3, ew4, h1, h2, h3, h4, w, x, y, z,  ox1,ox2, ox3, ox4, oy1,oy2, oy3, oy4) {
+	[  0+x, y,  8,     18+z+h1,  -3,      -12 -z]
+	[ x2+x, y, 20+ew2, 16+z+h2, -14 +ox2,  -9 -z+oy2]
+	[ x3+x, y,  w+ew3, 12+z+h3, -16 +ox3,  -8 -z+oy3]
+	[ x4+x, y, 20+ew4, 16+z+h4,  -6 +ox4,  -9 -z+oy4]
+}
+
+template tmpl_train_4view_88length_29px_high(x, y, z) {
+    /* Slightly odd offsets esp. in the / views */
+	tmpl_train_4view_88length_high_width_height_offset
+		(16, 48, 96,   0, 0, 0,   4, 0, 0, 0,   29,   x, y, z,  0,0,0,0,  0,0,0,0)
+}
+// Train, 4 views, 8/8 length (29px) for a height of 12 px
+template tmpl_train_4view_88length_29px(x, y) { tmpl_train_4view_88length_29px_high(x, y, 0) }
+// temperate rail clay wagon (full)
+spriteset(spr2781, "gfx/temperate_railwagons_28px.png") { tmpl_train_4view_88length_29px(  133,   259) }
+// temperate rail clay wagon (empty)
+spriteset(spr2737, "gfx/temperate_railwagons_28px.png") { tmpl_train_4view_88length_29px(  6,   259) }
+spritegroup spritegroup_clay_train {
+	loaded: [spr2737, spr2781];
+	loading: [spr2737, spr2781];
+}
+//empty --bricks
+spriteset(spr2765, "gfx/temperate_railwagons_28px.png") { tmpl_train_4view_88length_29px(  6,   156) }
+//full bricks
+spriteset(spr2789, "gfx/temperate_railwagons_28px.png") { tmpl_train_4view_88length_29px(  133,   156) }
+spritegroup spritegroup_brick_train {
+	loaded: [spr2765, spr2789];
+	loading: [spr2765, spr2789];
+}
+
+/* Define the actual train */
+item(FEAT_TRAINS, item_brick_wagon) {
+    /* Define properties first, make sure to set all of them */
+    property {
+        name:                         string(STR_NAME_BRICK_CAR);
+        // not available in toyland:
+        climates_available:           bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC); 
+        introduction_date:            date(1946, 1, 1);
+        model_life:                   VEHICLE_NEVER_EXPIRES;
+        vehicle_life:                 0;
+        reliability_decay:            0;
+        refittable_cargo_classes: bitmask(CC_PIECE_GOODS);
+		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_LIQUID, CC_REFRIGERATED, CC_EXPRESS, CC_COVERED);
+		cargo_allow_refit: [BRCK];
+		cargo_disallow_refit: [LVST, STEL, WOOD];//livestock, steel, wood
+		default_cargo_type: BRCK;
+        loading_speed:                18; 
+        cost_factor:                  1.0;
+        running_cost_factor:          0;
+        sprite_id:                    SPRITE_ID_NEW_TRAIN;
+        speed:                        999 km/h; // initial Bricc
+        misc_flags:                   bitmask(TRAIN_FLAG_2CC, TRAIN_FLAG_MU, TRAIN_FLAG_TILT); //Train_flag_tilt makes the cart drift in corners.
+        refit_cost:                   0; //refit costs don't apply to subcargo display 
+        // callback flags are not set manually
+        track_type:                   RAIL; // from rail type table
+        ai_special_flag:              AI_FLAG_CARGO;
+        power:                        0 kW; // Changed by CB
+        running_cost_base:            RUNNING_COST_NONE;
+        dual_headed:                  0;
+        cargo_capacity:               40; // per part, changed by callback
+        weight:                       144 ton; // Total, changed by callback
+        ai_engine_rank:               0; // not intended to be used by the ai
+        //engine_class:                 ENGINE_CLASS_ELECTRIC;
+        extra_power_per_wagon:        0 kW;
+        // 4/12 of weight on driving wheels, with a default friction coefficient of 0.3:
+        tractive_effort_coefficient:  0.3 / 3; // changed by callback
+        air_drag_coefficient:         0.06;
+        //shorten_vehicle:              SHORTEN_TO_8_8;
+        // Overridden by callback to disable for non-powered wagons:
+        visual_effect_and_powered:    visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 2, DISABLE_WAGON_POWER);
+        extra_weight_per_wagon:       0 ton;
+        bitmask_vehicle_info:         0;
+    }
+    /* Define graphics and callbacks
+     * Setting all callbacks is not needed, only define what is used */
+    graphics {
+        default:                      spritegroup_brick_train; //We should find some grapics about this. I'll just leave an error so that when it compiles we will know.
+    }
+}
+	
+item(FEAT_TRAINS, item_clay_wagon) {
+    /* Define properties first, make sure to set all of them */
+    property {
+        name:                         string(STR_NAME_CLAY_CAR);
+        // not available in toyland:
+        climates_available:           bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC); 
+        introduction_date:            date(1946, 1, 1);
+        model_life:                   VEHICLE_NEVER_EXPIRES;
+        vehicle_life:                 0;
+        reliability_decay:            0;
+        refittable_cargo_classes: bitmask(CC_BULK);
+		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_LIQUID, CC_REFRIGERATED, CC_EXPRESS, CC_COVERED);
+		cargo_allow_refit: [CLAY];
+		cargo_disallow_refit: [COAL, GRAI, IORE];
+		default_cargo_type: CLAY;
+        loading_speed:                18; 
+        cost_factor:                  1.0;
+        running_cost_factor:          0;
+        sprite_id:                    SPRITE_ID_NEW_TRAIN;
+        speed:                        999 km/h; // initial Bricc
+        misc_flags:                   bitmask(TRAIN_FLAG_2CC, TRAIN_FLAG_MU, TRAIN_FLAG_TILT); //Train_flag_tilt makes the cart drift in corners.
+        refit_cost:                   0; //refit costs don't apply to subcargo display 
+        // callback flags are not set manually
+        track_type:                   RAIL; // from rail type table
+        ai_special_flag:              AI_FLAG_CARGO;
+        power:                        0 kW; // Changed by CB
+        running_cost_base:            RUNNING_COST_NONE;
+        dual_headed:                  0;
+        cargo_capacity:               40; // per part, changed by callback
+        weight:                       144 ton; // Total, changed by callback
+        ai_engine_rank:               0; // not intended to be used by the ai
+        //engine_class:                 ENGINE_CLASS_ELECTRIC;
+        extra_power_per_wagon:        0 kW;
+        // 4/12 of weight on driving wheels, with a default friction coefficient of 0.3:
+        tractive_effort_coefficient:  0.3 / 3; // changed by callback
+        air_drag_coefficient:         0.06;
+        //shorten_vehicle:              SHORTEN_TO_8_8;
+        // Overridden by callback to disable for non-powered wagons:
+        visual_effect_and_powered:    visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 2, DISABLE_WAGON_POWER);
+        extra_weight_per_wagon:       0 ton;
+        bitmask_vehicle_info:         0;
+    }
+    /* Define graphics and callbacks
+     * Setting all callbacks is not needed, only define what is used */
+    graphics {
+        default:                      spritegroup_clay_train; //We should find some grapics about this. I'll just leave an error so that when it compiles we will know.
+    }
+}

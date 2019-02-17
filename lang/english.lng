@@ -6,6 +6,8 @@ STR_GRF_DESCRIPTION		:Adds some high-quality brick memes. {}Brought to you by Fl
 #Vehicles
 STR_NAME_BRICK_TRUCK	:Brick Truck
 STR_NAME_CLAY_TRUCK		:Clay Truck
+STR_NAME_BRICK_CAR		:Brick Car
+STR_NAME_CLAY_CAR		:Clay Car
 
 #Cargo types
 STR_CARGO_PLURAL_CLAY	:Clay
