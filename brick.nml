@@ -45,7 +45,7 @@ item(FEAT_ROADVEHS, item_flatbed_truck_1) {
 		model_life: 65;
 		vehicle_life: 15;
 		reliability_decay: 20;
-		refittable_cargo_classes: bitmask(CC_PIECE_GOODS, CC_EXPRESS);
+		refittable_cargo_classes: bitmask(CC_BRICK);
 		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_REFRIGERATED);
 		loading_speed: 5;
 		cost_factor: 108;
