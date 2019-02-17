@@ -442,23 +442,35 @@ item(FEAT_TRAINS, item_clay_wagon) {
     }
 }
 
-replace spr4712(4712, "gfx/ToyFactory1.png") { [ 158,   31,  27, 138, -14, -70] }
-replace spr4713(4713, "gfx/ToyFactory1.png") { [  94,    1,  64, 168, -46, -116, NOCROP] }
-replace spr4714(4714, "gfx/ToyFactory1.png") { [   2,   31,   2,   2,  52,  50] }
-replace spr4715(4715, "gfx/ToyFactory1.png") { [  38,   31,  60, 138, -38, -118] }
-replace spr4716(4716, "gfx/ToyFactory1.png") { [   2,   31,  37, 138, -43, -102] } // wheel
+//Plastic fountains -> clay mine
+replace spr4721(4721, "gfx/plasfount.png") { [  66,    8,  64,  44, -31, -13] }
+replace spr4722(4722, "gfx/plasfount.png") { [ 146,    8,  64,  44, -31, -13] }
+replace spr4723(4723, "gfx/plasfount.png") { [ 226,    8,  64,  44, -31, -13] }
+replace spr4724(4724, "gfx/plasfount.png") { [ 306,    8,  64,  44, -31, -13] }
+replace spr4725(4725, "gfx/plasfount.png") { [ 386,    8,  64,  44, -31, -13] }
+replace spr4726(4726, "gfx/plasfount.png") { [ 466,    8,  64,  44, -31, -13] }
+replace spr4727(4727, "gfx/plasfount.png") { [ 546,    8,  64,  44, -31, -13] }
+replace spr4728(4728, "gfx/plasfount.png") { [ 626,    8,  64,  44, -31, -13] }
+replace spr4729(4729, "gfx/plasfount.png") { [ 706,    8,  64,  36, -31, -24] }
+replace spr4730(4730, "gfx/plasfount.png") { [   2,   72,  64,  36, -31, -24] }
+replace spr4731(4731, "gfx/plasfount.png") { [  82,   72,  64,  36, -31, -24] }
+replace spr4732(4732, "gfx/plasfount.png") { [ 162,   72,  64,  36, -31, -24] }
+replace spr4733(4733, "gfx/plasfount.png") { [ 242,   72,  64,  36, -31, -24] }
+replace spr4734(4734, "gfx/plasfount.png") { [ 322,   72,  64,  36, -31, -24] }
+replace spr4735(4735, "gfx/plasfount.png") { [ 402,   72,  64,  36, -31, -24] }
+replace spr4736(4736, "gfx/plasfount.png") { [ 482,   72,  64,  36, -31, -24] }
 
 produce(clay_cargo_arrive_produce, 4, 4, 4, 3, 0, 1);
 
-item(FEAT_INDUSTRIES, industry_claymine, 31) {
+item(FEAT_INDUSTRIES, industry_claymine, 32) {
    graphics {
       produce_cargo_arrival: clay_cargo_arrive_produce;
    }
    property {
-      substitute: 31;
-      override: 31;
+      substitute: 32;
+      override: 32;
       prod_cargo_types: [CLAY];
-      accept_cargo_types: [ALOY,CHEM,PLST];
+      accept_cargo_types: [];
       prod_multiplier: [15];
       name: string(STR_CLAY_MINE);
       nearby_station_name: string(STR_STATION, string(STR_TOWN), string(STR_CLAY_MINE));
@@ -477,48 +489,174 @@ item(FEAT_INDUSTRIES, industry_claymine, 31) {
       prospect_chance: 0.75;
       fund_cost_multiplier: 100;
       remove_cost_multiplier: 0;
+	  layouts: [industry_clay_layout_1, industry_clay_layout_2, industry_clay_layout_3];
    }
 }
 
-item(FEAT_INDUSTRYTILES, industry_clay_tile_142, 142) {
+item(FEAT_INDUSTRYTILES, industry_clay_tile_148, 148) {
+	property {
+		substitute:					148;
+		override:					148;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_149, 149) {
+	property {
+		substitute:					149;
+		override:					149;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_150, 150) {
+	property {
+		substitute:					150;
+		override:					150;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_151, 151) {
+	property {
+		substitute:					151;
+		override:					151;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_152, 152) {
+	property {
+		substitute:					152;
+		override:					152;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_153, 153) {
+	property {
+		substitute:					153;
+		override:					153;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_154, 154) {
+	property {
+		substitute:					154;
+		override:					154;
+		accepted_cargos:			[];
+	}
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_155, 155) {
+	property {
+		substitute:					155;
+		override:					155;
+		accepted_cargos:			[];
+	}
+}
+tilelayout industry_clay_layout_1 {
+	
+			 	0, 0: 148;
+			 	0, 1: 151;
+			 	0, 2: 154;
+			 	0, 3: 151;
+			 	0, 4: 148;
+}tilelayout industry_clay_layout_3 {
+	
+			 	0, 0: 148;
+			 	1, 0: 151;
+			 	2, 0: 154;
+			 	3, 0: 151;
+			 	4, 0: 148;
+			 	4, 1: 151;
+			 	4, 2: 154;
+			 	4, 3: 151;
+			 	4, 4: 148;
+}tilelayout industry_clay_layout_2 {
+	
+			 	0, 2: 148;
+			 	1, 2: 151;
+			 	2, 2: 154;
+			 	3, 2: 151;
+			 	4, 2: 148;
+			 	2, 0: 148;
+			 	2, 1: 151;
+			 	2, 3: 151;
+			 	2, 4: 148;
+}
+//ToyFactory -> Brick Factory
+replace spr4712(4712, "gfx/ToyFactory1.png") { [ 158,   31,  27, 138, -14, -70] }
+replace spr4713(4713, "gfx/ToyFactory1.png") { [  94,    1,  64, 168, -46, -116, NOCROP] }
+replace spr4714(4714, "gfx/ToyFactory1.png") { [   2,   31,   2,   2,  52,  50] }
+replace spr4715(4715, "gfx/ToyFactory1.png") { [  38,   31,  60, 138, -38, -118] }
+replace spr4716(4716, "gfx/ToyFactory1.png") { [   2,   31,  37, 138, -43, -102] } // wheel
+
+produce(brick_cargo_arrive_produce, 4, 4, 4, 3, 0, 1);
+
+item(FEAT_INDUSTRIES, industry_brickfactory, 31) {
+   graphics {
+      produce_cargo_arrival: brick_cargo_arrive_produce;
+   }
+   property {
+      substitute: 31;
+      override: 31;
+      prod_cargo_types: [BRCK];
+      accept_cargo_types: [CLAY];
+      prod_multiplier: [15];
+      name: string(STR_BRICK_FACTORY);
+      nearby_station_name: string(STR_STATION, string(STR_TOWN), string(STR_BRICK_FACTORY));
+      life_type: IND_LIFE_TYPE_PROCESSING;
+      closure_msg: TTD_STR_NEWS_INDUSTRY_CLOSURE_SUPPLY_PROBLEMS;
+      prod_increase_msg: TTD_STR_NEWS_INDUSTRY_PRODUCTION_INCREASE_GENERAL;
+      prod_decrease_msg: TTD_STR_NEWS_INDUSTRY_PRODUCTION_DECREASE_GENERAL;
+      new_ind_msg: TTD_STR_NEWS_INDUSTRY_CONSTRUCTION;
+      min_cargo_distr: 5;
+      conflicting_ind_types: [];
+      input_multiplier_1: [0, 0];
+      input_multiplier_2: [0, 0];
+      input_multiplier_3: [0, 0];
+      prob_random: 5;
+      prob_in_game: 3;
+      prospect_chance: 0.75;
+      fund_cost_multiplier: 100;
+      remove_cost_multiplier: 0;
+   }
+}
+
+item(FEAT_INDUSTRYTILES, industry_brick_tile_142, 142) {
    property {
       substitute:               142;
       override:               142;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
-item(FEAT_INDUSTRYTILES, industry_clay_tile_143, 143) {
+item(FEAT_INDUSTRYTILES, industry_brick_tile_143, 143) {
    property {
       substitute:               143;
       override:               143;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
-item(FEAT_INDUSTRYTILES, industry_clay_tile_144, 144) {
+item(FEAT_INDUSTRYTILES, industry_brick_tile_144, 144) {
    property {
       substitute:               144;
       override:               144;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
-item(FEAT_INDUSTRYTILES, industry_clay_tile_145, 145) {
+item(FEAT_INDUSTRYTILES, industry_brick_tile_145, 145) {
    property {
       substitute:               145;
       override:               145;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
-item(FEAT_INDUSTRYTILES, industry_clay_tile_146, 146) {
+item(FEAT_INDUSTRYTILES, industry_brick_tile_146, 146) {
    property {
       substitute:               146;
       override:               146;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
-item(FEAT_INDUSTRYTILES, industry_clay_tile_147, 147) {
+item(FEAT_INDUSTRYTILES, industry_brick_tile_147, 147) {
    property {
       substitute:               147;
       override:               147;
-      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+      accepted_cargos:         [[CLAY,8]];
    }
 }
