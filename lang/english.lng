@@ -4,3 +4,30 @@ STR_GRF_NAME			:Brick Industries
 STR_GRF_DESCRIPTION		:Adds some high-quality brick memes.
 
 STR_NAME_BRICK_TRUCK	:Brick Truck
+
+#Cargo types
+STR_CARGO_PLURAL_CLAY	:clay
+STR_CARGO_SINGULAR_CLAY	:clay
+STR_QUANTITY_CLAY		:{WEIGHT} of clay
+STR_ABBREV_CLAY			:{TINYFONT}CL
+
+STR_CARGO_PLURAL_BRICK	:bricks
+STR_CARGO_SINGULAR_BRICK	:brick
+STR_QUANTITY_BRICK		:{COMMA} bricks
+STR_ABBREV_BRICK		:{TINYFONT}BR
+
+#Common
+STR_STATION            	:{STRING} {STRING}
+STR_TOWN				:{STRING}
+STR_PARAM_NAME_SPAWN_DURING_GAME	:Allow to spawn industries during game
+STR_PARAM_DESC_SPAWN_DURING_GAME	:Switch this option on to enable random spawn of industries from this set during game progress.
+TTD_STR_TONS			:{COMMA} tonnes
+STR_EMPTY				:Empty
+
+STR_PRIMARY_PRODUCTION_4X			:STR_PRIMARY_PRODUCTION_4X
+STR_PRIMARY_PRODUCTION_2X			:STR_PRIMARY_PRODUCTION_2X
+STR_PRIMARY_PRODUCTION_1X			:STR_PRIMARY_PRODUCTION_1X
+
+#Industries
+STR_CLAY_MINE			:Clay Mine
+STR_STATION_MINES		:Clay Mine

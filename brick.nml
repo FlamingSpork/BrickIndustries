@@ -4,6 +4,52 @@ grf {
 		desc: string(STR_GRF_DESCRIPTION);
 		version: 0;
 		min_compatible_version: 0;
+		
+		param {
+        param_spawn_game {
+            type: bool;
+            def_value: 0;
+            name: string(STR_PARAM_NAME_SPAWN_DURING_GAME);
+            desc: string(STR_PARAM_DESC_SPAWN_DURING_GAME);
+        }
+		}
+}
+
+//# 1 "clay_pit.nml" 1
+
+cargotable {
+	PASS,
+	COAL,
+	MAIL,
+	OIL_,
+	LVST,
+	GOOD,
+	GRAI,
+	WOOD,
+	IORE,
+	STEL,
+	VALU,
+	PAPR,
+	WHEA,
+	FOOD,
+	GOLD,
+	RUBR,
+	FRUT,
+	MAIZ,
+	CORE,
+	WATR,
+	DIAM,
+	BATT,
+	BUBL,
+	COLA,
+	FZDR,
+	PLST,
+	SWET,
+	SUGR,
+	TOFF,
+	TOYS,
+	CLAY,
+	BRCK,
 }
 
 //sprites; define before anything that needs them
@@ -34,6 +80,79 @@ spritegroup spritegroup_flatbed_truck_1_goods {
 	loaded: [SPRITESET_FLATBED_TRK_EMPTY, SPRITESET_FLATBED_TRK_FULL];
 	loading: [SPRITESET_FLATBED_TRK_EMPTY, SPRITESET_FLATBED_TRK_FULL];
 }
+
+
+/*spriteset(spritegroup_clay) {
+	//[10 + 20 * 9, 10 + 20 * 1, 10, 10, 0, 0,  "src/graphics/other/cargoicons.png"]
+	[0, 11, 10, 10, 0, 0, "gfx/items_dos2.png"]
+}*/
+
+
+/*spriteset(spritegroup_brick) {
+	//left_x, upper_y, width, height, offset_x, offset_y
+	[0, 0, 10, 10, 0, 0, "gfx/items_dos2.png"]
+}*/
+/*
+spriteset(spriteset_claymine) {
+	[0, 0, 192, 79, 0, 0, "gfx/claymine.png"]
+}
+*/
+/*
+item(FEAT_CARGOS, cargo_clay, 31) {
+	property {
+		number: 31;
+		type_name: string(STR_CARGO_PLURAL_CLAY);
+		unit_name: string(STR_CARGO_SINGULAR_CLAY); //for subsidies
+		units_of_cargo: string(TTD_STR_TONS);
+		items_of_cargo: string(STR_QUANTITY_CLAY);
+		type_abbreviation: string(STR_ABBREV_CLAY);
+		sprite: NEW_CARGO_SPRITE;
+		weight: 1; //1 ton
+		penalty_lowerbound: 30; //delivery time until penalty is applied
+		single_penalty_length: 255; //length of the interval where a single penalty is applied
+		price_factor: 53; //payment for 10 units over 20 squares in GBP
+		station_list_colour: 46; //from dos palette
+		cargo_payment_list_colour: 46; //from dos palette
+		is_freight: 1;
+		cargo_classes: bitmask(CC_BULK);
+		cargo_label: "CLAY";
+		town_growth_effect: TOWNGROWTH_NONE;
+		town_growth_multiplier: 0;
+		capacity_multiplier: 1;
+	}
+	
+	graphics {
+		spritegroup_clay;
+	}
+}
+
+item(FEAT_CARGOS, cargo_brick, 32) {
+    property {
+        type_name: string(STR_CARGO_PLURAL_BRICK);
+        unit_name: string(STR_CARGO_SINGULAR_BRICK);
+        type_abbreviation: string(STR_ABBREV_BRICK);
+        sprite: NEW_CARGO_SPRITE;
+        weight: 1.0;
+        station_list_colour: 46;
+        cargo_payment_list_colour: 46;
+        is_freight: 1;
+        cargo_classes: bitmask(CC_PIECE_GOODS);
+        town_growth_effect: TOWNGROWTH_GOODS; //bricks are powerful
+        town_growth_multiplier: 1.0;
+        units_of_cargo: TTD_STR_TONS;
+        items_of_cargo: string(STR_QUANTITY_BRICK);
+        penalty_lowerbound: 30;
+        single_penalty_length: 255;
+        price_factor: 102;
+        capacity_multiplier: 1;
+        cargo_label: "BRCK";
+        number: 32;
+    }
+    graphics {
+        spritegroup_clay;
+    }
+}
+*/
 
 //Brick truck
 item(FEAT_ROADVEHS, item_flatbed_truck_1) {
@@ -66,3 +185,54 @@ item(FEAT_ROADVEHS, item_flatbed_truck_1) {
 		default: spritegroup_flatbed_truck_1_goods;
 	}
 }
+/*
+
+spritelayout spritelayout_claymine {
+	ground {
+		sprite: GROUNDSPRITE_NORMAL;
+	}
+	building {
+		sprite:		spriteset_claymine(0);
+		xextent: 	192;
+		yextent:	79;
+		zextent:	0;
+		xoffset:	0;
+		yoffset:	0;
+		zoffset: 	0;
+	}
+}
+
+
+
+item(FEAT_INDUSTRIES, industry_claymine, 0x34) {
+	property {
+		substitute:             0;
+		prob_random:            0;
+		prob_in_game:           param_spawn_game;  
+		life_type: 		IND_LIFE_TYPE_EXTRACTIVE;
+		accept_cargo_types:     []; 
+		prod_cargo_types:       [cargotype("CLAY")];
+		fund_cost_multiplier: 	11;
+		prod_multiplier:        [16, 0];
+		name: 			string(STR_CLAY_MINE);
+		nearby_station_name:    string(STR_STATION, string(STR_TOWN),string(STR_STATION_MINES));
+		layouts: 		[claymine_layout];
+		map_colour:		0x2F; 
+		//spec_flags:             bitmask(IND_FLAG_ONLY_IN_LARGE_TOWNS);
+		}
+	
+	graphics {
+                    construction_probability: clay_pit_check_availability;
+                    build_prod_change:        randomise_primary_production_on_build;
+                    produce_cargo_arrival:    clay_pit_produce;
+                    produce_256_ticks:        clay_pit_produce_256_ticks;
+                    monthly_prod_change:      clay_pit_monthly_update;
+                    random_prod_change:       return CB_RESULT_IND_PROD_NO_CHANGE;
+                    location_check:           clay_pit_check_location;
+                    extra_text_fund:          return CB_RESULT_NO_TEXT;
+                    extra_text_industry:      clay_pit_extra_text;
+                    cargo_subtype_display:    clay_pit_cargo_subtype_display;
+                    colour:                   switch_colour;
+        }
+	}
+	*/
