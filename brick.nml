@@ -50,6 +50,9 @@ cargotable {
 	TOYS,
 	CLAY,
 	BRCK,
+	SUPP,
+	ALOY,
+	CHEM,
 }
 
 //sprites; define before anything that needs them
@@ -249,7 +252,7 @@ item(FEAT_ROADVEHS, item_flatbed_truck_2) {
 		default: spritegroup_bulk_truck;
 	}
 }
-/*
+
 
 spritelayout spritelayout_claymine {
 	ground {
@@ -266,8 +269,12 @@ spritelayout spritelayout_claymine {
 	}
 }
 
-
-
+/*switch(FEAT_INDUSTRIES, SELF, clay_pit_check_availability_param, restrict_open_during_gameplay) {
+	1..255: return CB_RESULT_IND_NO_CONSTRUCTION;         // disallow when restrictions in place
+	return CB_RESULT_IND_PROBABILITY_FROM_PROPERTY;       // we may build
+}
+*/
+/*
 item(FEAT_INDUSTRIES, industry_claymine, 0x34) {
 	property {
 		substitute:             0;
@@ -287,7 +294,7 @@ item(FEAT_INDUSTRIES, industry_claymine, 0x34) {
 	
 	graphics {
                     construction_probability: clay_pit_check_availability;
-                    build_prod_change:        randomise_primary_production_on_build;
+                    build_prod_change:        57;
                     produce_cargo_arrival:    clay_pit_produce;
                     produce_256_ticks:        clay_pit_produce_256_ticks;
                     monthly_prod_change:      clay_pit_monthly_update;
@@ -298,8 +305,7 @@ item(FEAT_INDUSTRIES, industry_claymine, 0x34) {
                     cargo_subtype_display:    clay_pit_cargo_subtype_display;
                     colour:                   switch_colour;
         }
-	}
-	*/
+	} */
 	
 railtypetable {
     RAIL
@@ -434,4 +440,85 @@ item(FEAT_TRAINS, item_clay_wagon) {
     graphics {
         default:                      spritegroup_clay_train; //We should find some grapics about this. I'll just leave an error so that when it compiles we will know.
     }
+}
+
+replace spr4712(4712, "gfx/ToyFactory1.png") { [ 158,   31,  27, 138, -14, -70] }
+replace spr4713(4713, "gfx/ToyFactory1.png") { [  94,    1,  64, 168, -46, -116, NOCROP] }
+replace spr4714(4714, "gfx/ToyFactory1.png") { [   2,   31,   2,   2,  52,  50] }
+replace spr4715(4715, "gfx/ToyFactory1.png") { [  38,   31,  60, 138, -38, -118] }
+replace spr4716(4716, "gfx/ToyFactory1.png") { [   2,   31,  37, 138, -43, -102] } // wheel
+
+produce(clay_cargo_arrive_produce, 4, 4, 4, 3, 0, 1);
+
+item(FEAT_INDUSTRIES, industry_claymine, 31) {
+   graphics {
+      produce_cargo_arrival: clay_cargo_arrive_produce;
+   }
+   property {
+      substitute: 31;
+      override: 31;
+      prod_cargo_types: [CLAY];
+      accept_cargo_types: [ALOY,CHEM,PLST];
+      prod_multiplier: [15];
+      name: string(STR_CLAY_MINE);
+      nearby_station_name: string(STR_STATION, string(STR_TOWN), string(STR_CLAY_MINE));
+      life_type: IND_LIFE_TYPE_PROCESSING;
+      closure_msg: TTD_STR_NEWS_INDUSTRY_CLOSURE_SUPPLY_PROBLEMS;
+      prod_increase_msg: TTD_STR_NEWS_INDUSTRY_PRODUCTION_INCREASE_GENERAL;
+      prod_decrease_msg: TTD_STR_NEWS_INDUSTRY_PRODUCTION_DECREASE_GENERAL;
+      new_ind_msg: TTD_STR_NEWS_INDUSTRY_CONSTRUCTION;
+      min_cargo_distr: 5;
+      conflicting_ind_types: [];
+      input_multiplier_1: [0, 0];
+      input_multiplier_2: [0, 0];
+      input_multiplier_3: [0, 0];
+      prob_random: 5;
+      prob_in_game: 3;
+      prospect_chance: 0.75;
+      fund_cost_multiplier: 100;
+      remove_cost_multiplier: 0;
+   }
+}
+
+item(FEAT_INDUSTRYTILES, industry_clay_tile_142, 142) {
+   property {
+      substitute:               142;
+      override:               142;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_143, 143) {
+   property {
+      substitute:               143;
+      override:               143;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_144, 144) {
+   property {
+      substitute:               144;
+      override:               144;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_145, 145) {
+   property {
+      substitute:               145;
+      override:               145;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_146, 146) {
+   property {
+      substitute:               146;
+      override:               146;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
+}
+item(FEAT_INDUSTRYTILES, industry_clay_tile_147, 147) {
+   property {
+      substitute:               147;
+      override:               147;
+      accepted_cargos:         [[ALOY,8],[CHEM,8],[PLST,8]];
+   }
 }

@@ -1,3 +1,5 @@
+//This file is only separate for historical reasons -- real code is in brick.nml
+
 railtypetable {
     RAIL
 }
