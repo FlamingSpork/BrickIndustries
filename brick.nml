@@ -1,0 +1,68 @@
+grf {
+		grfid: "FS\00\00";
+		name: string(STR_GRF_NAME);
+		desc: string(STR_GRF_DESCRIPTION);
+		version: 0;
+		min_compatible_version: 0;
+}
+
+//sprites; define before anything that needs them
+spriteset(SPRITESET_FLATBED_TRK_EMPTY, "gfx/flatbed_example.png") {
+	//left_x, upper_y, width, height, offset_x, offset_y
+    [ 0,      0,        8,    18,      -3,       -10]
+    [ 16,     0,       20,    16,     -14,        -7]
+    [ 48,     0,       28,    12,     -14,        -6]
+    [ 96,     0,       20,    16,      -6,        -7]
+    [ 128,    0,        8,    18,      -3,       -10]
+    [ 144,    0,       20,    16,     -14,        -7]
+    [ 176,    0,       28,    12,     -14,        -6]
+    [ 224,    0,       20,    16,      -6,        -7]
+}
+
+spriteset(SPRITESET_FLATBED_TRK_FULL, "gfx/flatbed_example.png") {
+	[ 260,    0,        8,    18,      -3,      -10]
+    [ 276,    0,       20,    16,     -14,       -7]
+    [ 308,    0,       28,    12,     -14,       -6]
+    [ 356,    0,       20,    16,      -6,       -7]
+    [ 388,    0,        8,    18,      -3,      -10]
+    [ 404,    0,       20,    16,     -14,       -7]
+    [ 436,    0,       28,    12,     -14,       -6]
+    [ 484,    0,       20,    16,      -6,       -7]
+}
+
+spritegroup spritegroup_flatbed_truck_1_goods {
+	loaded: [SPRITESET_FLATBED_TRK_EMPTY, SPRITESET_FLATBED_TRK_FULL];
+	loading: [SPRITESET_FLATBED_TRK_EMPTY, SPRITESET_FLATBED_TRK_FULL];
+}
+
+//Brick truck
+item(FEAT_ROADVEHS, item_flatbed_truck_1) {
+	property {
+		//Generic vehicle stuff
+		name: string(STR_NAME_BRICK_TRUCK);
+		climates_available: bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL); //change because of RIT's weather
+		introduction_date: date(1946,01,01);
+		model_life: 65;
+		vehicle_life: 15;
+		reliability_decay: 20;
+		refittable_cargo_classes: bitmask(CC_PIECE_GOODS, CC_EXPRESS);
+		non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_REFRIGERATED);
+		loading_speed: 5;
+		cost_factor: 108;
+		running_cost_factor: 90;
+		//Road vehicle stuff
+		sprite_id: SPRITE_ID_NEW_ROADVEH;
+		speed: 48 km/h;
+		misc_flags: bitmask(ROADVEH_FLAG_2CC);
+		refit_cost: 0;
+		running_cost_base: RUNNING_COST_ROADVEH;
+		power: 120 hp;
+		weight: 9.5 ton;
+		cargo_capacity: 20;
+		sound_effect: SOUND_BUS_START_PULL_AWAY;
+	}
+	
+	graphics {
+		default: spritegroup_flatbed_truck_1_goods;
+	}
+}
